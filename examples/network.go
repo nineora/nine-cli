@@ -3,23 +3,39 @@ package main
 import (
 	"fmt"
 	"github.com/hootuu/gelato/crtpto/hexx"
-	"github.com/hootuu/gelato/io/rest"
+	"github.com/hootuu/gelato/io/pagination"
+	"github.com/hootuu/gelato/io/serializer"
+	"github.com/nineora/nine-cli/nineapi"
 	"github.com/nineora/nine-cli/ninecli"
-	"github.com/nineora/nineora/nineora"
 	"github.com/nineora/nineora/ninerpc"
 )
 
 func main() {
-	priStr := "43e57262b2632824c8ffbc016a945b89b5854f1322f6c488ad2aabcc5adb533ec55a59054a7d3ab0133d845aabb01efce8d088adb8fe778521db1323cce05362"
+	priStr := "ced49ab201255208746af52a4717e8851cfbc21ba4f686f5473abe0ff9047d01dabcc7e3a1276fbb562130f4036589ddb563717216c937681cc7cb0359934664"
 	pri, err := hexx.Decode(priStr)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 	ninecli.SetPriKey(pri)
-	resp := ninecli.Rest[rest.Empty, nineora.Nineora](
-		ninerpc.NineoraGet,
-		rest.NewEmpty(),
-	)
-	fmt.Println(resp.JSON())
+	m, err := nineapi.NetworkQuery(&ninerpc.NetworkQueryReq{})
+	fmt.Println(serializer.JsonMustTo(m), err)
+
+	network, err := nineapi.NetworkGet(&ninerpc.NetworkGetReq{ID: "87b999ebafcfa859ec8414da91970326"})
+	fmt.Println(serializer.JsonMustTo(network), err)
+
+	nodePage, err := nineapi.NodeQueryByNetwork(&ninerpc.NodeQueryByNetworkReq{
+		NetworkID: "87b999ebafcfa859ec8414da91970326",
+		Page: &pagination.Page{
+			Size: 5,
+			Numb: 1,
+		},
+	})
+	fmt.Println(serializer.JsonMustTo(nodePage), err)
+
+	nodePage, err = nineapi.NodeQueryBySuperior(&ninerpc.NodeQueryBySuperiorReq{
+		Superior: "4af5e58dc0c44d282cdc5a9fc75e55df",
+		Page:     nil,
+	})
+	fmt.Println(serializer.JsonMustTo(nodePage), err)
 }
