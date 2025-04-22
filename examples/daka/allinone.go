@@ -192,7 +192,7 @@ func main() {
 	}
 	fmt.Println("member: ", jsonx.MustJSON2String(tx))
 
-	for i := 0; i < 1000; i++ {
+	for i := 0; i < 3; i++ {
 		tx, err = dakaapi.LottoTrigger(&dakarpc.LottoTriggerReq{
 			OrderAmount:        1000 * 1000000,
 			ContributionAmount: 400 * 1000000,
@@ -208,4 +208,91 @@ func main() {
 		fmt.Println("lotto trigger: ", jsonx.MustJSON2String(tx))
 		time.Sleep(100 * time.Millisecond)
 	}
+
+	for i := 0; i < 100; i++ {
+		provinceData, err := dakaapi.ProvinceGet(&provinceNodeLink)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		fmt.Println("province data: ", jsonx.MustJSON2String(provinceData))
+
+		cityData, err := dakaapi.CityGet(&cityLink)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		fmt.Println("city data: ", jsonx.MustJSON2String(cityData))
+
+		zoneData, err := dakaapi.ZoneGet(&zoneLink)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		fmt.Println("zone data: ", jsonx.MustJSON2String(zoneData))
+
+		branchData, err := dakaapi.BranchGet(&branchLink)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		fmt.Println("branch data: ", jsonx.MustJSON2String(branchData))
+
+		divData, err := dakaapi.DivisionGet(&divLink)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		fmt.Println("div data: ", jsonx.MustJSON2String(divData))
+
+		asso, err := dakaapi.AssociateGet(&assoLink)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		fmt.Println("asso data: ", jsonx.MustJSON2String(asso))
+
+		mcSrcData, err := dakaapi.MerchantGet(&mcSrcLink)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		fmt.Println("mc.src data: ", jsonx.MustJSON2String(mcSrcData))
+
+		mcData, err := dakaapi.MerchantGet(&mcLink)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		fmt.Println("merchant data: ", jsonx.MustJSON2String(mcData))
+
+		memberData, err := dakaapi.MemberGet(&memberLink)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		fmt.Println("member data: ", jsonx.MustJSON2String(memberData))
+
+		memberAccInfo, err := nineapi.AccGet(&memberAcc)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		memberAddr, _ := ninekey.CalcAddress(chain.SUI, memberAccInfo.PublicKey)
+		fmt.Println("[member.sui] ", memberAddr)
+		pageData, err := nineapi.BalQueryByAcc(&ninerpc.BalQueryByAccReq{
+			AccountLink: memberAcc,
+			Page:        nil,
+		})
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		fmt.Println("member.BalQueryByAcc---------->>>>>>>>>")
+		fmt.Println(jsonx.MustJSON2String(pageData))
+		fmt.Println("member.BalQueryByAcc<<<<<<<<<<---------")
+		time.Sleep(10 * time.Second)
+		fmt.Println("---->:::::---->")
+	}
+
 }
