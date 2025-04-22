@@ -7,7 +7,7 @@ import (
 	"github.com/hootuu/gelato/io/serializer"
 	"github.com/nineora/nine-cli/nineapi"
 	"github.com/nineora/nine-cli/ninecli"
-	"github.com/nineora/nineora/ninerpc"
+	"github.com/nineora/nineora/nine/ninerpc"
 )
 
 func main() {
@@ -21,21 +21,42 @@ func main() {
 	m, err := nineapi.NetworkQuery(&ninerpc.NetworkQueryReq{})
 	fmt.Println(serializer.JsonMustTo(m), err)
 
-	network, err := nineapi.NetworkGet(&ninerpc.NetworkGetReq{ID: "87b999ebafcfa859ec8414da91970326"})
+	const networkID = "a2506828304e5dc0bc736014bad6fdaf"
+	network, err := nineapi.NetworkGet(&ninerpc.NetworkGetReq{NID: networkID})
 	fmt.Println(serializer.JsonMustTo(network), err)
 
 	nodePage, err := nineapi.NodeQueryByNetwork(&ninerpc.NodeQueryByNetworkReq{
-		NetworkID: "87b999ebafcfa859ec8414da91970326",
+		NetworkID: networkID,
 		Page: &pagination.Page{
-			Size: 5,
+			Size: 10,
 			Numb: 1,
 		},
+		WithCore: false,
 	})
+
+	fmt.Println("-------network------")
 	fmt.Println(serializer.JsonMustTo(nodePage), err)
 
+	if len(nodePage.Data) == 0 {
+		return
+	}
+
+	var superiorID string
+	for _, n := range nodePage.Data {
+		if n.Deep == 1 {
+			superiorID = n.NID
+			fmt.Println("superiorID:", superiorID)
+			fmt.Println("tt", n.Ctrl)
+			break
+		}
+	}
+
 	nodePage, err = nineapi.NodeQueryBySuperior(&ninerpc.NodeQueryBySuperiorReq{
-		Superior: "4af5e58dc0c44d282cdc5a9fc75e55df",
+		Superior: superiorID,
 		Page:     nil,
+		WithCore: false,
+		Deep:     []uint32{},
 	})
+	fmt.Println("-------sub------")
 	fmt.Println(serializer.JsonMustTo(nodePage), err)
 }

@@ -4,8 +4,8 @@ import (
 	"github.com/hootuu/gelato/errors"
 	"github.com/hootuu/gelato/io/pagination"
 	"github.com/nineora/nine-cli/ninecli"
-	"github.com/nineora/nineora/nineora"
-	"github.com/nineora/nineora/ninerpc"
+	"github.com/nineora/nineora/nine/nineora"
+	"github.com/nineora/nineora/nine/ninerpc"
 )
 
 // NodeQueryByNetwork : ninerpc.NodeQueryByNetwork

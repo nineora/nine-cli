@@ -7,7 +7,7 @@ import (
 	"github.com/hootuu/gelato/io/serializer"
 	"github.com/nineora/nine-cli/nineapi"
 	"github.com/nineora/nine-cli/ninecli"
-	"github.com/nineora/nineora/ninerpc"
+	"github.com/nineora/nineora/nine/ninerpc"
 )
 
 func main() {
