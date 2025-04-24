@@ -64,7 +64,7 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-	ninecli.SetPriKey(pri)
+	ninecli.UsePrivateKey(pri)
 
 	provinceWallet := newWallet("province.wallet", cast.ToString(time.Now().UnixMilli()))
 	provinceAcc := newAccount(provinceWallet, "province.acc", cast.ToString(time.Now().UnixMilli()))
@@ -210,6 +210,31 @@ func main() {
 	}
 
 	for i := 0; i < 100; i++ {
+		memberClaimTx, err := dakaapi.LottoMemberClaim(&dakarpc.LottoMemberClaimReq{
+			Member: memberLink,
+		})
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		fmt.Println("memberClaimTx data: ", jsonx.MustJSON2String(memberClaimTx))
+
+		mcClaimTx, err := dakaapi.LottoMerchantClaim(&dakarpc.LottoMerchantClaimReq{
+			Merchant: mcLink,
+		})
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		fmt.Println("mcClaimTx data: ", jsonx.MustJSON2String(mcClaimTx))
+
+		pcWithdrawTx, err := dakaapi.ProvinceWithdraw(&dakarpc.ProvinceWithdrawReq{Province: provinceNodeLink})
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		fmt.Println("pcWithdrawTx data: ", jsonx.MustJSON2String(pcWithdrawTx))
+
 		provinceData, err := dakaapi.ProvinceGet(&provinceNodeLink)
 		if err != nil {
 			fmt.Println(err)

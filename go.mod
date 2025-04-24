@@ -7,6 +7,7 @@ replace github.com/nineora/nineora => ../nineora
 replace github.com/hootuu/gelato => ../Hotu/gelato
 
 require (
+	github.com/avast/retry-go v3.0.0+incompatible
 	github.com/hootuu/gelato v0.0.0-20250328202339-8c0867ee6bad
 	github.com/nineora/nineora v0.0.0-20250324045818-224122e0684d
 	resty.dev/v3 v3.0.0-beta.2

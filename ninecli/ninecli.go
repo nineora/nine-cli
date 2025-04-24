@@ -4,6 +4,7 @@ import (
 	"github.com/hootuu/gelato/configure"
 	"github.com/hootuu/gelato/errors"
 	"github.com/hootuu/gelato/io/rest"
+	"github.com/nineora/nineora/nine/ninekey"
 	"resty.dev/v3"
 	"time"
 )
@@ -24,13 +25,12 @@ func Rest[REQ any, RESP any](path string, data *REQ) (*RESP, *errors.Error) {
 	return resp.Data, nil
 }
 
-func SetPriKey(priKey []byte) {
-	gCliPriKey = priKey
+func UsePrivateKey(privateKey ninekey.PrivateKey) {
+	gCliPriKey = privateKey
 }
 
 func init() {
 	gCliGuardID = configure.GetString("nineora.loc.guard", "cvqjvokdhg6lal704kn0")
-
 	cfgBaseUrl := configure.GetString("nineora.loc.gw", "http://localhost:8080")
 	cfgRetryWaitTime := configure.GetDuration("nineora.loc.wait.retry", 2)
 	cfgRetryMaxWaitTime := configure.GetDuration("nineora.loc.wait.retry.max", 10)

@@ -11,8 +11,8 @@ func LottoTrigger(req *dakarpc.LottoTriggerReq) (*chain.Tx, *errors.Error) {
 	return ninecli.Rest[dakarpc.LottoTriggerReq, chain.Tx](dakarpc.LottoTriggerPath, req)
 }
 func LottoMemberClaim(req *dakarpc.LottoMemberClaimReq) (*chain.Tx, *errors.Error) {
-	return nil, nil
+	return ninecli.Rest[dakarpc.LottoMemberClaimReq, chain.Tx](dakarpc.LottoMemberClaimPath, req)
 }
 func LottoMerchantClaim(req *dakarpc.LottoMerchantClaimReq) (*chain.Tx, *errors.Error) {
-	return nil, nil
+	return ninecli.Rest[dakarpc.LottoMerchantClaimReq, chain.Tx](dakarpc.LottoMerchantClaimPath, req)
 }
