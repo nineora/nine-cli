@@ -64,3 +64,19 @@ func main() {
 
 ## Example
 more example see: the package examples
+
+## Chain
+### SUI
+#### DEV
+```ini
+NineoraPackageAddr: 0x06fbe9d1e6542bcd1f5192c74bbd751bf4535c31681f04f487c1753f64f4714f
+Nineora: 0x0c47f39c954cc316a14453019fe576a38faa4c113dbbde23b976112d55bddf49
+
+DakaNetworkAddr: 0xb855c8aa2421b7e454a12a9115d41671e8af6e9c9e26e4ab9026156f2e9b6db6
+DakaPackageAddr: 0x6045389f3757c0c9b003e47dcedebcc7c8b9eeb2e4d98d1ede03fc631b2408bc
+UnimktBizAddr: 0xf7ba9db527c700e2c77bc7957fba36531c4cc93248a674a67810f55b0aa838ec
+KAKA: 0xe741eafb7ccadafea18fec20ed03f1547e3965c407cf0cc27f8894beb08be38f
+DAKA: 0xb0df5fa49048167065e27962475305b748ca9d902b03153a74fba2a93cc1bd77
+DIGI: 0x82d22d6a60305d57d92ff3de77eb42d7a7fa091c79274903f24066a1852cbe67
+DADA: 0xad8bd4a03353981fc4fef207921abd0af9b09ea47a6773b6b701cced3aaa48c4
+```
