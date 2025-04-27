@@ -100,6 +100,15 @@ func RandDivision() *CommunityAgent {
 var gAssociateDB = make(map[string]*CommunityAgent)
 var gAssociateDBMu sync.Mutex
 
+func AssociateGet(link nineora.Link) *CommunityAgent {
+	for _, item := range gAssociateDB {
+		if item.getNodeLink() == link {
+			return item
+		}
+	}
+	return nil
+}
+
 func RandAssociate() *CommunityAgent {
 	division := RandDivision()
 	gAssociateDBMu.Lock()

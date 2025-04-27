@@ -9,11 +9,10 @@ import (
 	"github.com/nineora/nineora/daka/dakarpc"
 	"github.com/nineora/nineora/nine/nineora"
 	"github.com/nineora/nineora/nine/ninerpc"
-	"math/rand/v2"
 	"time"
 )
 
-const NetworkID nineora.NetworkID = "9ce9bfd80ea246955b7f7997456dcd00"
+const NetworkID nineora.NetworkID = "7304da03e436ea87b0426440fb01b272"
 
 const MaxMemberCount = 2000
 const MaxMerchantCount = 500
@@ -30,6 +29,7 @@ func Running() {
 	for i := 0; i < 1; i++ {
 		go OneScene()
 	}
+	//NewMerchant()
 	time.Sleep(100 * time.Hour)
 }
 
@@ -38,14 +38,14 @@ func OneScene() {
 	zone := RandZone()
 	mc := RandMerchant()
 
-	for i := 0; i < 1000; i++ {
+	for i := 0; i < 1; i++ {
 		OneTime(member, zone, mc)
-		time.Sleep(100 * time.Millisecond)
+		time.Sleep(10000 * time.Millisecond)
 	}
 }
 
 func OneTime(member *Member, zone *AreaAgent, mc *Merchant) {
-	orderAmount := uint64(rand.IntN(1000)) * 1000000
+	orderAmount := uint64(1000) * 100 //uint64(rand.IntN(1000)) * 100
 	contributionAmount := orderAmount * mc.InvestRatio / 10000
 	tx, err := dakaapi.LottoTrigger(&dakarpc.LottoTriggerReq{
 		OrderAmount:        orderAmount,
@@ -146,29 +146,81 @@ func OneTime(member *Member, zone *AreaAgent, mc *Merchant) {
 		//	}
 		//	fmt.Println("\n[daka-zone]\n", jsonx.MustJSON2String(dakaZone))
 		//
-		//	time.Sleep(200 * time.Millisecond)
+		time.Sleep(5000 * time.Millisecond)
 		//}
-		balancePage, err := nineapi.BalQueryByAcc(&ninerpc.BalQueryByAccReq{
-			AccountLink: zone.getChainAccLink(),
-			Page:        nil,
-		})
-		if err != nil {
-			fmt.Println("nineapi.BalQueryByAcc err", err)
-			return
+		for i := 0; i < 1; i++ {
+
+			mcData, err := dakaapi.MerchantGet(mc.getNodeLink())
+			if err != nil {
+				fmt.Println("dakaapi.MerchantGet err", err)
+				return
+			}
+
+			fmt.Println("\n[daka-mc.data]\n", mc.getNodeLink(),
+				"\n",
+				jsonx.MustJSON2String(mcData))
+			break
 		}
-		fmt.Println("\n[daka-zone.bal]\n", jsonx.MustJSON2String(balancePage))
-		for _, balItem := range balancePage.Data {
-			ballPage, err := nineapi.BillQueryByBal(&ninerpc.BillQueryByBalReq{
-				BalanceID: balItem.NID,
-				Page:      pagination.PageNormal(),
+
+		for i := 0; i < 5; i++ {
+			asso := AssociateGet(mc.Associate)
+			balancePage, err := nineapi.BalQueryByAcc(&ninerpc.BalQueryByAccReq{
+				AccountLink: asso.getChainAccLink(),
+				Page:        nil,
 			})
 			if err != nil {
 				fmt.Println("nineapi.BalQueryByAcc err", err)
 				return
 			}
-			fmt.Println("[daka-zone.bal]balance:", balItem.GetBalance().Display())
-			fmt.Println("====>>>>[daka-zone.bal]", balItem.NID, jsonx.MustJSON2String(ballPage))
+			if len(balancePage.Data) == 0 {
+				time.Sleep(1000 * time.Millisecond)
+				continue
+			}
+			fmt.Println("\n[daka-asso.bal]\n", jsonx.MustJSON2String(balancePage))
+			for _, balItem := range balancePage.Data {
+				ballPage, err := nineapi.BillQueryByBal(&ninerpc.BillQueryByBalReq{
+					BalanceID: balItem.NID,
+					Page:      pagination.PageNormal(),
+				})
+				if err != nil {
+					fmt.Println("nineapi.BalQueryByAcc err", err)
+					return
+				}
+				fmt.Println("[daka-asso.bal]balance:", balItem.GetBalance().Display())
+				fmt.Println("====>>>>[daka-asso.bal]", balItem.NID, jsonx.MustJSON2String(ballPage))
+			}
+			break
 		}
+
+		for i := 0; i < 5; i++ {
+			balancePage, err := nineapi.BalQueryByAcc(&ninerpc.BalQueryByAccReq{
+				AccountLink: zone.getChainAccLink(),
+				Page:        nil,
+			})
+			if err != nil {
+				fmt.Println("nineapi.BalQueryByAcc err", err)
+				return
+			}
+			if len(balancePage.Data) == 0 {
+				time.Sleep(1000 * time.Millisecond)
+				continue
+			}
+			fmt.Println("\n[daka-zone.bal]\n", jsonx.MustJSON2String(balancePage))
+			for _, balItem := range balancePage.Data {
+				ballPage, err := nineapi.BillQueryByBal(&ninerpc.BillQueryByBalReq{
+					BalanceID: balItem.NID,
+					Page:      pagination.PageNormal(),
+				})
+				if err != nil {
+					fmt.Println("nineapi.BalQueryByAcc err", err)
+					return
+				}
+				fmt.Println("[daka-zone.bal]balance:", balItem.GetBalance().Display())
+				fmt.Println("====>>>>[daka-zone.bal]", balItem.NID, jsonx.MustJSON2String(ballPage))
+			}
+			break
+		}
+		fmt.Println("=====>>>on-time=====>>>>ovner")
 	}()
 
 }

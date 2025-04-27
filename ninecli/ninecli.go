@@ -30,8 +30,8 @@ func UsePrivateKey(privateKey ninekey.PrivateKey) {
 }
 
 func init() {
-	gCliGuardID = configure.GetString("nineora.loc.guard", "cvqjvokdhg6lal704kn0")
-	cfgBaseUrl := configure.GetString("nineora.loc.gw", "http://localhost:8080")
+	gCliGuardID = configure.GetString("nineora.loc.guard", "d06pl5iubk6gcfpvifk0")
+	cfgBaseUrl := configure.GetString("nineora.loc.gw", "http://192.168.13.65:8080")
 	cfgRetryWaitTime := configure.GetDuration("nineora.loc.wait.retry", 2)
 	cfgRetryMaxWaitTime := configure.GetDuration("nineora.loc.wait.retry.max", 10)
 	cfgTimeout := configure.GetDuration("nineora.loc.timeout", 60)
