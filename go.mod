@@ -2,7 +2,7 @@ module github.com/nineora/nine-cli
 
 go 1.24.1
 
-//replace github.com/nineora/nineora => ../nineora
+replace github.com/nineora/nineora => ../nineora
 
 //replace github.com/hootuu/gelato => ../Hotu/gelato
 
