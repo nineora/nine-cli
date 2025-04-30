@@ -39,3 +39,8 @@ func MerchantGet(linkPtr nineora.Link) (*daka.Merchant, *errors.Error) {
 func MemberGet(linkPtr nineora.Link) (*daka.Member, *errors.Error) {
 	return ninecli.Rest[nineora.Link, daka.Member](dakarpc.MemberGetPath, &linkPtr)
 }
+
+func LottoGet() (*daka.LottoAccount, *errors.Error) {
+	paras := ""
+	return ninecli.Rest[string, daka.LottoAccount](dakarpc.LottoGetPath, &paras)
+}
