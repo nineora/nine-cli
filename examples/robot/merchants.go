@@ -39,6 +39,7 @@ func RandMerchant() *Merchant {
 			sys.Exit(errors.System("mc.init err"))
 		}
 		gMcDB[m.UID] = m
+		superiorPut(m.getNodeLink(), m.Associate)
 		return m
 	}
 
@@ -65,6 +66,7 @@ func NewMerchant() *Merchant {
 		init:        false,
 		mu:          sync.Mutex{},
 	}
+	fmt.Println("mc.invest_ratio:", m.InvestRatio)
 	retry.Do(func() error {
 		m.doInit()
 		return nil

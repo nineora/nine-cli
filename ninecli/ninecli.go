@@ -34,7 +34,7 @@ func init() {
 	cfgBaseUrl := configure.GetString("nineora.loc.gw", "http://localhost:8080")
 	cfgRetryWaitTime := configure.GetDuration("nineora.loc.wait.retry", 2)
 	cfgRetryMaxWaitTime := configure.GetDuration("nineora.loc.wait.retry.max", 10)
-	cfgTimeout := configure.GetDuration("nineora.loc.timeout", 60)
+	cfgTimeout := configure.GetDuration("nineora.loc.timeout", 60*time.Second)
 	gRest.SetBaseURL(cfgBaseUrl)
 	gRest.WithTimeSetter(func(cli *resty.Client) {
 		cli.SetRetryWaitTime(cfgRetryWaitTime * time.Second).

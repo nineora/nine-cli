@@ -30,6 +30,7 @@ func RandMember() *Member {
 			sys.Exit(errors.System("member.init err"))
 		}
 		gMemberDB[m.UID] = m
+		superiorPut(m.getNodeLink(), m.Merchant)
 		return m
 	}
 

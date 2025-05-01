@@ -16,3 +16,15 @@ func LottoMemberClaim(req *dakarpc.LottoMemberClaimReq) (*chain.Tx, *errors.Erro
 func LottoMerchantClaim(req *dakarpc.LottoMerchantClaimReq) (*chain.Tx, *errors.Error) {
 	return ninecli.Rest[dakarpc.LottoMerchantClaimReq, chain.Tx](dakarpc.LottoMerchantClaimPath, req)
 }
+
+func LottoAreaSet(req *dakarpc.LottoAreaSetReq) (*chain.Tx, *errors.Error) {
+	return ninecli.Rest[dakarpc.LottoAreaSetReq, chain.Tx](dakarpc.LottoAreaSetPath, req)
+}
+
+func LottoCommunitySet(req *dakarpc.LottoCommunitySetReq) (*chain.Tx, *errors.Error) {
+	return ninecli.Rest[dakarpc.LottoCommunitySetReq, chain.Tx](dakarpc.LottoCommunitySetPath, req)
+}
+
+func LottoSupplySet(req *dakarpc.LottoSupplySetReq) (*chain.Tx, *errors.Error) {
+	return ninecli.Rest[dakarpc.LottoSupplySetReq, chain.Tx](dakarpc.LottoSupplySetPath, req)
+}

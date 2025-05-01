@@ -150,7 +150,7 @@ func NewCommunity(t string, superior nineora.Link) *CommunityAgent {
 		m.doInit()
 		return nil
 	}, retry.Attempts(10), retry.MaxDelay(300*time.Millisecond))
-
+	superiorPut(m.getNodeLink(), m.Superior)
 	return m
 }
 

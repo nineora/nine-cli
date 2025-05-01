@@ -53,16 +53,23 @@ func BillQueryByBal(
 	)
 }
 
-func WalletGet(link *nineora.Link) (*nineora.Wallet, *errors.Error) {
+func WalletGet(link nineora.Link) (*nineora.Wallet, *errors.Error) {
 	return ninecli.Rest[nineora.Link, nineora.Wallet](
 		ninerpc.WalletGetPath,
-		link,
+		&link,
 	)
 }
 
-func AccGet(link *nineora.Link) (*nineora.Account, *errors.Error) {
+func AccGet(link nineora.Link) (*nineora.Account, *errors.Error) {
 	return ninecli.Rest[nineora.Link, nineora.Account](
 		ninerpc.AccGetPath,
-		link,
+		&link,
+	)
+}
+
+func AccMnemonic(req *ninerpc.AccMnemonicReq) (*nineora.Mnemonic, *errors.Error) {
+	return ninecli.Rest[ninerpc.AccMnemonicReq, nineora.Mnemonic](
+		ninerpc.AccMnemonicPath,
+		req,
 	)
 }
