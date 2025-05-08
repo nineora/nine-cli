@@ -38,3 +38,7 @@ func MerchantCreate(req *dakarpc.MerchantCreateReq) (*chain.Tx, *errors.Error) {
 func MemberCreate(req *dakarpc.MemberCreateReq) (*chain.Tx, *errors.Error) {
 	return ninecli.Rest[dakarpc.MemberCreateReq, chain.Tx](dakarpc.MemberCreatePath, req)
 }
+
+func MerchantSetInvest(req *dakarpc.MerchantSetInvestReq) (*chain.Tx, *errors.Error) {
+	return ninecli.Rest[dakarpc.MerchantSetInvestReq, chain.Tx](dakarpc.MerchantSetInvestPath, req)
+}

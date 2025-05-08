@@ -2,14 +2,14 @@ module github.com/nineora/nine-cli
 
 go 1.24.1
 
-replace github.com/nineora/nineora => ../nineora
+//replace github.com/nineora/nineora => ../nineora
 
 //replace github.com/hootuu/gelato => ../Hotu/gelato
 
 require (
 	github.com/avast/retry-go v3.0.0+incompatible
 	github.com/hootuu/gelato v0.0.0-20250422111331-1fc936cc37c5
-	github.com/nineora/nineora v0.0.0-20250424115916-3be89a004670
+	github.com/nineora/nineora v1.0.2
 	github.com/spf13/cast v1.7.1
 	resty.dev/v3 v3.0.0-beta.2
 )

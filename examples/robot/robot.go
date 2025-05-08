@@ -46,7 +46,7 @@ func Running() {
 	//	NxtUnlockRatio: 1000,
 	//})
 	//fmt.Println(tx, err)
-	for i := 0; i < 2; i++ {
+	for i := 0; i < 1; i++ {
 		go OneScene()
 	}
 	//NewMerchant()
@@ -58,7 +58,7 @@ func OneScene() {
 	zone := RandZone()
 	mc := RandMerchant()
 
-	for i := 0; i < 100; i++ {
+	for i := 0; i < 1; i++ {
 		OneTime(member, zone, mc)
 		//time.Sleep(10000 * time.Millisecond)
 	}
